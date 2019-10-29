@@ -1,0 +1,7 @@
+<component name="ProjectTemplateVariables">
+  <templateVariables>
+    <variable name="ORGANIZATION_NAME">ProjectGalen</variable>
+    <variable name="HEADER_COMMENTS">Y</variable>
+    <variable name="USER_NAME">Galen Rhodes</variable>
+  </templateVariables>
+</component>
