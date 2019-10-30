@@ -23,9 +23,10 @@
 #ifndef __PGBufferElement_Private_h__
 #define __PGBufferElement_Private_h__
 
-#import "PGBufferElement.h"
-#import "PGByteBufferElement.h"
-#import "PGURLBufferElement.h"
+#import <Randolph/PGByteBuffer.h>
+#import <Randolph/PGBufferElement.h>
+#import <Randolph/PGByteBufferElement.h>
+#import <Randolph/PGURLBufferElement.h>
 
 @interface PGBufferElement()
 

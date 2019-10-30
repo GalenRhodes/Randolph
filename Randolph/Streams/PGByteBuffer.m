@@ -20,9 +20,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *//************************************************************************/
 
-#import "PGByteBuffer.h"
-#import "PGBufferElement.h"
-#import "PGByteBufferElement.h"
+#import "PGBufferElement_Private.h"
 
 const NSInteger PGChunkBufferSize = (1024 * 1024); // 1 MB chunks...
 

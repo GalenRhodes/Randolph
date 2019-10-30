@@ -23,7 +23,7 @@
 #ifndef __RANDOLPH_PGBYTEBUFFERELEMENT_H__
 #define __RANDOLPH_PGBYTEBUFFERELEMENT_H__
 
-#import "PGBufferElement.h"
+#import <Randolph/PGBufferElement.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
