@@ -196,6 +196,7 @@
 		1117DD66254018E219694D74 /* PGDOMTextContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDOMTextContent.m; sourceTree = "<group>"; };
 		1117DD782616029BC160FF5A /* PGDOMUserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDOMUserData.h; sourceTree = "<group>"; };
 		1117DD7B2659BB768522FB71 /* PGDOMDocumentFragment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDOMDocumentFragment.m; sourceTree = "<group>"; };
+		1117DDD32F2158CBD0FD1182 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1117DDDD9333F2BFC17A53A1 /* URLTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLTests.m; sourceTree = "<group>"; };
 		1117DDE20BCFE2EF87036BE0 /* PGByteBufferElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGByteBufferElement.h; sourceTree = "<group>"; };
 		1117DDF8FBDE05F106C708E8 /* PGTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTools.m; sourceTree = "<group>"; };
@@ -208,6 +209,7 @@
 		1117DF5889A3DA8C582D9E7C /* PGDOMTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDOMTests.m; sourceTree = "<group>"; };
 		1117DF7FF3DFAA4B150BBD87 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		1117DF8A47F2D6D98A7F2598 /* PGDOMNamed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDOMNamed.h; sourceTree = "<group>"; };
+		1117DFA600E09CBB981EFED2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1117DFB04BE01BBEA812A8B7 /* PGDOMDocument_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDOMDocument_Private.h; sourceTree = "<group>"; };
 		1117DFCC9370576113596F8A /* PGDOMNonChildParent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDOMNonChildParent.m; sourceTree = "<group>"; };
 		1117DFDABCE5ADED35C45B3E /* PGBufferElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGBufferElement.h; sourceTree = "<group>"; };
@@ -414,6 +416,8 @@
 				1117DE62E157FA9807553F72 /* Randolph */,
 				1117D6D53561AE58A67FDA42 /* RandolphTests */,
 				1117D31B4C9F2EC2D1ADDACC /* NodeDrawingTemplates.pcvd */,
+				1117DFA600E09CBB981EFED2 /* README.md */,
+				1117DDD32F2158CBD0FD1182 /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
