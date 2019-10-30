@@ -21,7 +21,7 @@
 		1117D29211DE8DDC147A5A38 /* PGDOMNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D0A8E3149D6BF46565E6 /* PGDOMNode.m */; };
 		1117D2AA74D064FF9ECC8944 /* PGDOMChild.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D0080C7CEF0D3ABDC73F /* PGDOMChild.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D2BC26F007061D19E98E /* PGDOMElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D844515D69E7E314B472 /* PGDOMElement.m */; };
-		1117D2E975427AC468142C8F /* PGURLBufferElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117DBA779CD8465672AF49A /* PGURLBufferElement.h */; };
+		1117D2E975427AC468142C8F /* PGURLBufferElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117DBA779CD8465672AF49A /* PGURLBufferElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D338EDEDD0724C7AB78F /* PGDOMCData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D31B43FF35040BBA4F23 /* PGDOMCData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D35D1B101DC0439B048E /* PGBufferElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117DFDABCE5ADED35C45B3E /* PGBufferElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D3A8D22CA59A664428E1 /* PGDOMDocumentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117DFDE08B5BE514E7B0358 /* PGDOMDocumentType.m */; };
@@ -39,7 +39,7 @@
 		1117D5C8F2B337F7DEE0434B /* PGTreeNodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117DB7D0C080C546798F78E /* PGTreeNodeTests.m */; };
 		1117D5EE57CF3E5633D2BA28 /* PGTreeNode+PGTreeNodeDraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D4BB07D711DD1091A55F /* PGTreeNode+PGTreeNodeDraw.m */; };
 		1117D5F89B1D001DEEA38146 /* PGDOMCData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D8D79C7AA5E5FBE5E814 /* PGDOMCData.m */; };
-		1117D6403C3E9A8A121B076F /* PGBufferElement_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D5C0F5A08273D1285D92 /* PGBufferElement_Private.h */; };
+		1117D6403C3E9A8A121B076F /* PGBufferElement_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D5C0F5A08273D1285D92 /* PGBufferElement_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D6433D53B97798952006 /* PGDOMLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D6F6768B0049A2E91AD4 /* PGDOMLocator.m */; };
 		1117D6C21B486CCF672F3B3C /* PGURLBufferElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D6EA45981832DDAC336B /* PGURLBufferElement.m */; };
 		1117D6DDA7F2E2B4C948103A /* PGDOMDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D875EF57D5D58B7284DC /* PGDOMDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,7 +53,7 @@
 		1117D892C43C824AC1B88B9F /* PGDOMNonChildParent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D1BA1B4435B8697FE57A /* PGDOMNonChildParent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D8FF34AFCB12AD6C7AEC /* PGDOMDocumentFragment.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117DA6F78005EC9175D87EC /* PGDOMDocumentFragment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D90ED0E30E0B3BEE423B /* PGDOMEntityReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D168C5F99A6D675510AF /* PGDOMEntityReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1117D95211757B7F2B4224D3 /* PGByteBufferElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117DDE20BCFE2EF87036BE0 /* PGByteBufferElement.h */; };
+		1117D95211757B7F2B4224D3 /* PGByteBufferElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117DDE20BCFE2EF87036BE0 /* PGByteBufferElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D952DFCE2A954446D55A /* PGDOMEntityReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 1117D9FC1E067513837F81B8 /* PGDOMEntityReference.m */; };
 		1117D95711C5D06760D1A993 /* PGDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D6D9EE3E2422D068439D /* PGDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1117D967B0ABB1BD564C1595 /* PGTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 1117D2458EA81F2F8AFA7854 /* PGTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -349,16 +349,18 @@
 			path = Collections;
 			sourceTree = "<group>";
 		};
-		1117D83DEB0C6718A998EB5E /* Private */ = {
+		1117D83DEB0C6718A998EB5E /* BufferElements */ = {
 			isa = PBXGroup;
 			children = (
+				1117D4095564F61A1045AC34 /* PGBufferElement.m */,
+				1117DFDABCE5ADED35C45B3E /* PGBufferElement.h */,
 				1117D3AC03F49CB7A1147DF6 /* PGByteBufferElement.m */,
 				1117DDE20BCFE2EF87036BE0 /* PGByteBufferElement.h */,
 				1117D5C0F5A08273D1285D92 /* PGBufferElement_Private.h */,
 				1117D6EA45981832DDAC336B /* PGURLBufferElement.m */,
 				1117DBA779CD8465672AF49A /* PGURLBufferElement.h */,
 			);
-			path = Private;
+			path = BufferElements;
 			sourceTree = "<group>";
 		};
 		1117D98F5475E16BBA147D18 /* Nodes */ = {
@@ -502,11 +504,9 @@
 		1117DF0C2659BE448FB599BE /* Streams */ = {
 			isa = PBXGroup;
 			children = (
-				1117D83DEB0C6718A998EB5E /* Private */,
+				1117D83DEB0C6718A998EB5E /* BufferElements */,
 				1117D6F9733DC6484641047F /* PGByteBuffer.m */,
 				1117D2BFCB7627368FD1DDBA /* PGByteBuffer.h */,
-				1117D4095564F61A1045AC34 /* PGBufferElement.m */,
-				1117DFDABCE5ADED35C45B3E /* PGBufferElement.h */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -561,6 +561,9 @@
 				1117DF23D9378605C39FC606 /* PGDOMProcessingInstruction.h in Headers */,
 				1117DD3AF146E0C49F663928 /* PGByteBuffer.h in Headers */,
 				1117D35D1B101DC0439B048E /* PGBufferElement.h in Headers */,
+				1117D95211757B7F2B4224D3 /* PGByteBufferElement.h in Headers */,
+				1117D6403C3E9A8A121B076F /* PGBufferElement_Private.h in Headers */,
+				1117D2E975427AC468142C8F /* PGURLBufferElement.h in Headers */,
 				1117DCAE9D292FC5ED500AF8 /* PGDOMDocumentType.h in Headers */,
 				1117DEEF5735F6720A573D24 /* PGDOMEntity.h in Headers */,
 				1117D7BB1077CFEDA77DCDAE /* PGDOMPrivate.h in Headers */,
@@ -570,9 +573,6 @@
 				1117D555AC2A9218DDA798DF /* PGFastEnumState.h in Headers */,
 				1117D4D52A634340BAB75BB5 /* PGDOMDocument_Private.h in Headers */,
 				1117DCADD6859E5822AE30EF /* TreeDrawData.h in Headers */,
-				1117D95211757B7F2B4224D3 /* PGByteBufferElement.h in Headers */,
-				1117D6403C3E9A8A121B076F /* PGBufferElement_Private.h in Headers */,
-				1117D2E975427AC468142C8F /* PGURLBufferElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
