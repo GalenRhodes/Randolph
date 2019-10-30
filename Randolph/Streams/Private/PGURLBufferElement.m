@@ -21,16 +21,17 @@
  *//************************************************************************/
 
 #import "PGBufferElement_Private.h"
-#import "PGURLBufferElement.h"
 
 typedef void (^compHndlr_t)(NSURLSessionResponseDisposition);
 
+typedef void (^cacheCompHndlr2_t)(NSCachedURLResponse *);
+
 @implementation PGURLBufferElement {
-        NSMutableData *_dataBuild;
-        NSURLSession  *_urlSession;
     }
 
     @synthesize urlTask = _urlTask;
+    @synthesize dataBuild = _dataBuild;
+    @synthesize urlSession = _urlSession;
 
     -(instancetype)initWithURL:(NSString *)url error:(NSError **)error {
         self = [super init];
@@ -52,12 +53,16 @@ typedef void (^compHndlr_t)(NSURLSessionResponseDisposition);
         return _sessionConf;
     }
 
+    -(NSHTTPURLResponse *)urlTaskResponse {
+        return ((NSHTTPURLResponse *)self.urlTask.response);
+    }
+
     -(NSURLSessionDataTask *)taskForURL:(NSString *)url {
         return [_urlSession dataTaskWithURL:[NSURL URLWithString:url]];
     }
 
     -(BOOL)isCompleted {
-        return ((_urlTask == nil) || !((_urlTask.state == NSURLSessionTaskStateRunning) || (_urlTask.state == NSURLSessionTaskStateSuspended)));
+        return ((_urlTask == nil) || (_urlTask.state == NSURLSessionTaskStateCompleted));
     }
 
     -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)task didReceiveResponse:(NSURLResponse *)resp completionHandler:(compHndlr_t)compHndlr {
@@ -67,14 +72,34 @@ typedef void (^compHndlr_t)(NSURLSessionResponseDisposition);
 
     -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
         PGLog(@"didReceiveData: %@ bytes.", @(data.length));
+        if(data.length) [_dataBuild appendData:data];
+    }
+
+    -(BOOL)isStatusSuccess {
+        NSInteger statusCode = self.urlTaskResponse.statusCode;
+        return (statusCode >= 200) && (statusCode < 300);
     }
 
     -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-        PGLog(@"didCompleteWithError: %@; code: %@", error.description, @(((NSHTTPURLResponse *)task.response).statusCode));
+        PGLog(@"didCompleteWithError: %@; code: %@", error.description, @(self.urlTaskResponse.statusCode));
+
+        if(self.isStatusSuccess) {
+            self.buffer = _dataBuild;
+        }
     }
 
     -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics {
         PGLog(@"didFinishCollectingMetrics: %@", metrics.description);
     }
+
+    -(void)URLSession:(NSURLSession *)s dataTask:(NSURLSessionDataTask *)t willCacheResponse:(NSCachedURLResponse *)r completionHandler:(cacheCompHndlr2_t)h {
+        PGLog(@"willCacheResponse: NO");
+        h(nil);
+    }
+
+    -(BOOL)isAtEOF {
+        return NO;
+    }
+
 
 @end

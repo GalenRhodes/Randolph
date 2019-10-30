@@ -24,7 +24,7 @@
 #define __RANDOLPH_PGBUFFERELEMENT_H__
 
 #import <Cocoa/Cocoa.h>
-#import <Randolph/PGTools.h>
+#import "PGTools.h"
 
 @class PGByteBuffer;
 

@@ -25,13 +25,35 @@
 
 #import "PGBufferElement.h"
 #import "PGByteBufferElement.h"
+#import "PGURLBufferElement.h"
 
 @interface PGBufferElement()
 
     @property(nonatomic) NSUInteger count;
-    @property(nonatomic) NSError *lastError;
+    @property(nonatomic) NSError    *lastError;
 
     -(void)setError:(NSError *)error error:(NSError **)pError;
+
+@end
+
+@interface PGByteBufferElement()
+
+    @property(nonatomic) NSData *buffer;
+
+@end
+
+@interface PGURLBufferElement()
+
+    @property(nonatomic, readonly)/*      */ BOOL                 isCompleted;
+    @property(nonatomic, readonly)/*      */ BOOL                 isStatusSuccess;
+    @property(nonatomic, nullable, readonly) NSURLSessionDataTask *urlTask;
+    @property(nonatomic, nullable, readonly) NSHTTPURLResponse    *urlTaskResponse;
+    @property(nonatomic, nullable, readonly) NSMutableData        *dataBuild;
+    @property(nonatomic, nullable, readonly) NSURLSession         *urlSession;
+
+    +(NSURLSessionConfiguration *)backgroundSessionConfiguration;
+
+    -(NSURLSessionDataTask *)taskForURL:(NSString *)url;
 
 @end
 

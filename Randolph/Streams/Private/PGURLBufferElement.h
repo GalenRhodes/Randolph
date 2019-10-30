@@ -29,13 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PGURLBufferElement : PGByteBufferElement<NSURLSessionDataDelegate>
 
-    @property(nonatomic, readonly) BOOL                 isCompleted;
-    @property(nonatomic, readonly) NSURLSessionDataTask *urlTask;
-
-    +(NSURLSessionConfiguration *)backgroundSessionConfiguration;
-
-    -(NSURLSessionDataTask *)taskForURL:(NSString *)url;
-
 @end
 
 NS_ASSUME_NONNULL_END
