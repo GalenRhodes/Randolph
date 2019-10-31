@@ -38,6 +38,8 @@ NSString *const PGErrorEmptyArray       = @"Array Empty";
 NSString *const PGErrorCannotGrowBuffer = @"Cannot grow buffer.";
 NSString *const PGErrorNoBuffer         = @"No buffer.";
 NSString *const PGErrorDataSourceClosed = @"Data source is closed.";
+NSString *const PGErrorBadSemCount      = @"Count must be in the range 0 < x <= %@.";
+NSString *const PGErrorInvalidTimeout   = @"Timeout period is invalid.";
 
 NSString *const PGErrorMsgBadIndex               = @"%@ > %@";
 NSString *const PGErrorMsgBadIndex2              = @"%@ >= %@";
@@ -47,25 +49,26 @@ NSString *const PGErrorMsgNoNodeRotation         = @"Cannot rotate tree node to 
 NSString *const PGErrorMsgObjectIsNull           = @"%@ is null.";
 NSString *const PGErrorMsgBufferMalloc           = @"Malloc Error: %@";
 NSString *const PGErrorMsgNSStream               = @"%@ stream %@";
-NSString *const PGMsgSelectorCompare             = @"compare:";
 NSString *const PGErrorMsgNSStreamUnknown        = @"Unknown %@ error";
 NSString *const PGErrorMsgBufferElementOwnership = @"%@ element is not owned by this buffer";
 NSString *const PGErrorMsgZeroSize               = @"Size is zero";
 NSString *const PGErrorMsgBufferFull             = @"Buffer is full";
 NSString *const PGErrorMsgBufferNoRoom           = @"Only enough room for %@ bytes";
 
-NSString *const PGMsgReference   = @"Reference";
-NSString *const PGMsgBuffer      = @"Buffer";
-NSString *const PGMsgLeft        = @"left";
-NSString *const PGMsgRight       = @"right";
-NSString *const PGMsgKey         = @"Key";
-NSString *const PGMsgValue       = @"Value";
-NSString *const PGMsgInput       = @"Input";
-NSString *const PGMsgOutput      = @"Output";
-NSString *const PGMsgIO          = @"I/O";
-NSString *const PGMsgNotOpen     = @"not open";
-NSString *const PGMsgBusyReading = @"busy reading";
-NSString *const PGMsgBusyWriting = @"busy writing";
-NSString *const PGMsgClosed      = @"closed";
+NSString *const PGMsgReference       = @"Reference";
+NSString *const PGMsgSelectorCompare = @"compare:";
+NSString *const PGMsgBuffer          = @"Buffer";
+NSString *const PGMsgLeft            = @"left";
+NSString *const PGMsgRight           = @"right";
+NSString *const PGMsgKey             = @"Key";
+NSString *const PGMsgValue           = @"Value";
+NSString *const PGMsgInput           = @"Input";
+NSString *const PGMsgOutput          = @"Output";
+NSString *const PGMsgIO              = @"I/O";
+NSString *const PGMsgNotOpen         = @"not open";
+NSString *const PGMsgBusyReading     = @"busy reading";
+NSString *const PGMsgBusyWriting     = @"busy writing";
+NSString *const PGMsgClosed          = @"closed";
 
+NSString *const PGSemaphoreNameFormat = @"pgsem_%@";
 

@@ -25,6 +25,8 @@
 FOUNDATION_EXPORT double RandolphVersionNumber;
 FOUNDATION_EXPORT const unsigned char RandolphVersionString[];
 
+#import <Randolph/sem_timedwait.h>
+#import <Randolph/PGSemaphore.h>
 #import <Randolph/PGIndexedList.h>
 #import <Randolph/PGTreeNode.h>
 #import <Randolph/PGDOMTools.h>
@@ -47,3 +49,4 @@ FOUNDATION_EXPORT const unsigned char RandolphVersionString[];
 #import <Randolph/PGDOMNodeList.h>
 #import <Randolph/PGTreeNode+PGTreeNodeDraw.h>
 #import <Randolph/PGByteBuffer.h>
+#import <Randolph/PGURLBufferElement.h>

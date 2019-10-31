@@ -28,12 +28,14 @@
 #import <Randolph/PGByteBufferElement.h>
 #import <Randolph/PGURLBufferElement.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PGBufferElement()
 
     @property(nonatomic) NSUInteger count;
     @property(nonatomic) NSError    *lastError;
 
-    -(void)setError:(NSError *)error error:(NSError **)pError;
+    -(void)setError:(nullable NSError *)error error:(NSError **)pError;
 
 @end
 
@@ -45,17 +47,17 @@
 
 @interface PGURLBufferElement()
 
-    @property(nonatomic, readonly)/*      */ BOOL                 isCompleted;
-    @property(nonatomic, readonly)/*      */ BOOL                 isStatusSuccess;
-    @property(nonatomic, nullable, readonly) NSURLSessionDataTask *urlTask;
-    @property(nonatomic, nullable, readonly) NSHTTPURLResponse    *urlTaskResponse;
-    @property(nonatomic, nullable, readonly) NSMutableData        *dataBuild;
-    @property(nonatomic, nullable, readonly) NSURLSession         *urlSession;
+    @property(nonatomic, nullable, readonly) NSURLSessionTask  *urlTask;
+    @property(nonatomic, nullable, readonly) NSHTTPURLResponse *urlTaskResponse;
+    @property(nonatomic, nullable, readonly) NSMutableData     *dataBuild;
+    @property(nonatomic, nullable, readonly) NSURLSession      *urlSession;
 
     +(NSURLSessionConfiguration *)backgroundSessionConfiguration;
 
     -(NSURLSessionDataTask *)taskForURL:(NSString *)url;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif // __PGBufferElement_Private_h__

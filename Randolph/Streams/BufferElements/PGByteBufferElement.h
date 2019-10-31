@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     -(instancetype)initWithBytesNoCopy:(pPGByte)bytes length:(NSUInteger)length freeWhenDone:(BOOL)freeWhenDone error:(NSError **)error NS_DESIGNATED_INITIALIZER;
 
-    -(instancetype)initWithFileAtPath:(NSString *)path error:(NSError **)error NS_DESIGNATED_INITIALIZER;
+    -(instancetype)initWithBytesFromFileAtPath:(NSString *)path error:(NSError **)error NS_DESIGNATED_INITIALIZER;
 
     -(instancetype)initWithBytesFromStream:(NSInputStream *)stream length:(NSUInteger)length error:(NSError **)error NS_DESIGNATED_INITIALIZER;
 

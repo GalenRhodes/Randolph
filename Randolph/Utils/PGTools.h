@@ -24,6 +24,7 @@
 #define __RANDOLPH_PGTOOLS_H__
 
 #import <Randolph/PGDefines.h>
+#import <Randolph/PGTime.h>
 #import <Randolph/PGIndexedList.h>
 #import <math.h>
 
@@ -46,8 +47,12 @@ typedef struct __pg_polar__ {
 
 typedef void (^PGDrawingBlock)(NSSize size);
 
-typedef u_int8_t PGByte;
-typedef PGByte   *pPGByte;
+typedef u_int8_t               PGByte;
+typedef PGByte                 *pPGByte;
+typedef long long int          NSLInteger;
+typedef unsigned long long int NSLUInteger;
+typedef struct timespec        PGTimespec;
+typedef struct timeval         PGTimeval;
 
 @interface NSObject(Randolph)
 
@@ -235,6 +240,8 @@ FOUNDATION_EXPORT NSNotificationCenter *PGNotificationCenter(void);
 FOUNDATION_EXPORT NSError *PGMakeError(NSInteger code, NSString *description, ...) NS_FORMAT_FUNCTION(2, 3);
 
 FOUNDATION_EXPORT void PGLog(NSString *format, ...) NS_FORMAT_FUNCTION(1, 2);
+
+FOUNDATION_EXPORT NSString *PGErrorString(int eno);
 
 NS_INLINE NSError *PGSetError(NSError *__nullable *__nullable pError, NSError *__nullable error) {
     if(pError) *pError = error;

@@ -321,6 +321,39 @@ void PGLog(NSString *format, ...) {
     va_end(a);
 }
 
+NSString *PGErrorString(int eno) {
+    size_t bsize = 8192;
+    char   *buf  = (char *)malloc(bsize);
+
+    @try {
+        do {
+            if(!buf) {
+                return PGErrorOutOfMemory;
+            }
+            else {
+                int i = strerror_r(eno, buf, bsize);
+
+                if(i == 0) {
+                    return [NSString stringWithUTF8String:buf];
+                }
+                else if(((i < 0) ? errno : i) == ERANGE) {
+                    free(buf);
+                    buf = (char *)malloc(bsize *= 2);
+                }
+                else {
+                    return PGErrorUnknown;
+                }
+            }
+        }
+        while(bsize < NSIntegerMax);
+    }
+    @finally {
+        if(buf) free(buf);
+    }
+
+    return PGErrorUnknown;
+}
+
 @implementation NSObject(Randolph)
 
     -(BOOL)isInstanceOf:(Class)cls {

@@ -44,6 +44,8 @@ FOUNDATION_EXPORT NSString *const PGErrorEmptyArray;
 FOUNDATION_EXPORT NSString *const PGErrorCannotGrowBuffer;
 FOUNDATION_EXPORT NSString *const PGErrorNoBuffer;
 FOUNDATION_EXPORT NSString *const PGErrorDataSourceClosed;
+FOUNDATION_EXPORT NSString *const PGErrorBadSemCount;
+FOUNDATION_EXPORT NSString *const PGErrorInvalidTimeout;
 
 FOUNDATION_EXPORT NSString *const PGErrorMsgBadIndex;
 FOUNDATION_EXPORT NSString *const PGErrorMsgBadIndex2;
@@ -73,6 +75,8 @@ FOUNDATION_EXPORT NSString *const PGMsgNotOpen;
 FOUNDATION_EXPORT NSString *const PGMsgBusyReading;
 FOUNDATION_EXPORT NSString *const PGMsgBusyWriting;
 FOUNDATION_EXPORT NSString *const PGMsgClosed;
+
+FOUNDATION_EXPORT NSString *const PGSemaphoreNameFormat;
 
 NS_ASSUME_NONNULL_END
 

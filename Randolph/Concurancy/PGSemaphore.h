@@ -1,9 +1,9 @@
 /************************************************************************//**
  *     PROJECT: Randolph
- *    FILENAME: URLTests.m
+ *    FILENAME: PGSemaphore.h
  *         IDE: AppCode
  *      AUTHOR: Galen Rhodes
- *        DATE: 10/28/19
+ *        DATE: 10/30/19
  *
  * Copyright © 2019 ProjectGalen. All rights reserved.
  *
@@ -20,24 +20,40 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *//************************************************************************/
 
-#import "URLTests.h"
+#ifndef __RANDOLPH_PGSEMAPHORE_H__
+#define __RANDOLPH_PGSEMAPHORE_H__
 
-@implementation URLTests {
-    }
+#import <Cocoa/Cocoa.h>
 
-    -(void)setUp {
-    }
+@class PGTime;
 
-    -(void)tearDown {
-    }
+NS_ASSUME_NONNULL_BEGIN
 
-    -(void)testURLLoad {
-        NSString           *urlString = @"http://www.thissmallworld.com/";
-        NSError            *error     = nil;
-        PGURLBufferElement *elem      = [[PGURLBufferElement alloc] initWithBytesFromURL:urlString forceDownload:NO error:&error];
+// Reference https://github.com/django/asgi_ipc/issues/4
+#ifdef __APPLE__
+    #define PG_MAX_IPC_NAME_LENGTH 30
+#else
+    #define PG_MAX_IPC_NAME_LENGTH 251
+#endif
 
-        while(!elem.isCompleted);
-        PGLog(@"Done. Data length: %@", @(elem.buffer.length));
-    }
+typedef NS_ENUM(NSUInteger, PGSemaphoreResponses) {
+    PG_SEM_WAIT_SUCCESS = 0, PG_SEM_WAIT_TIMEOUT, PG_SEM_WAIT_BUSY, PG_SEM_WAIT_INTERRUPT, PG_SEM_WAIT_DEADLOCK, PG_SEM_WAIT_OTHERERR
+};
 
+@interface PGSemaphore : NSObject
+
+    @property(nonatomic, readonly)/*  */ NSUInteger count;
+    @property(nonatomic, readonly, copy) NSString   *name;
+
+    -(PGSemaphoreResponses)post;
+
+    -(PGSemaphoreResponses)wait;
+
+    -(PGSemaphoreResponses)tryWait;
+
+    -(PGSemaphoreResponses)timedWait:(PGTime *)timeout;
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif // __RANDOLPH_PGSEMAPHORE_H__

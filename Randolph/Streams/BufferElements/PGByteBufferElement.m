@@ -67,7 +67,7 @@ const NSInteger ReadBufferSize = 8192;
         }
     }
 
-    -(instancetype)initWithFileAtPath:(NSString *)path error:(NSError **)error {
+    -(instancetype)initWithBytesFromFileAtPath:(NSString *)path error:(NSError **)error {
         self = [super init];
         if(self) {
             self.name = path;

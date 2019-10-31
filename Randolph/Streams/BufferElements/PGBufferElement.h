@@ -51,9 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
 
     +(instancetype)elementWithBytesNoCopy:(pPGByte)bytes length:(NSUInteger)length freeWhenDone:(BOOL)freeWhenDone error:(NSError **)error;
 
-    +(instancetype)elementWithFileAtPath:(NSString *)path error:(NSError **)error;
+    +(instancetype)elementWithBytesFromFileAtPath:(NSString *)path error:(NSError **)error;
 
     +(instancetype)elementWithBytesFromStream:(NSInputStream *)stream length:(NSUInteger)length error:(NSError **)error;
+
+    +(instancetype)elementWithBytesFromURL:(NSString *)strUrl error:(NSError **)error;
 
 @end
 

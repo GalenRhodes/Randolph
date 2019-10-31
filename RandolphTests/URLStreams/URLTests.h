@@ -23,13 +23,12 @@
 #ifndef __RANDOLPH_URLTESTS_H__
 #define __RANDOLPH_URLTESTS_H__
 
-#import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import <Randolph/PGTools.h>
+#import <Randolph/Randolph.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface URLTests : XCTestCase<NSURLSessionDataDelegate>
+@interface URLTests : XCTestCase
 @end
 
 NS_ASSUME_NONNULL_END

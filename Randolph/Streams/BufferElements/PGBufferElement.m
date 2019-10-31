@@ -66,12 +66,17 @@
         return [[PGByteBufferElement alloc] initWithBytesNoCopy:bytes length:length freeWhenDone:freeWhenDone error:error];
     }
 
-    +(instancetype)elementWithFileAtPath:(NSString *)path error:(NSError **)error {
-        return [[PGByteBufferElement alloc] initWithFileAtPath:path error:error];
+    +(instancetype)elementWithBytesFromFileAtPath:(NSString *)path error:(NSError **)error {
+        return [[PGByteBufferElement alloc] initWithBytesFromFileAtPath:path error:error];
     }
 
     +(instancetype)elementWithBytesFromStream:(NSInputStream *)stream length:(NSUInteger)length error:(NSError **)error {
         return [[PGByteBufferElement alloc] initWithBytesFromStream:stream length:length error:error];
     }
+
+    +(instancetype)elementWithBytesFromURL:(NSString *)strUrl error:(NSError **)error {
+        return [[PGURLBufferElement alloc] initWithBytesFromURL:strUrl forceDownload:NO error:error];
+    }
+
 
 @end

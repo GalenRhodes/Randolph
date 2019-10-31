@@ -27,7 +27,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PGURLBufferElement : PGByteBufferElement<NSURLSessionDataDelegate>
+@interface PGURLBufferElement : PGByteBufferElement<NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
+
+    @property(nonatomic, readonly) BOOL isCompleted;
+    @property(nonatomic, readonly) BOOL isStatusSuccess;
+    @property(nonatomic, readonly) BOOL forceDownload;
+
+    -(instancetype)initWithBytesFromURL:(NSString *)url forceDownload:(BOOL)forceDownload error:(NSError **)error;
 
 @end
 
