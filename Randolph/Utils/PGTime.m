@@ -96,7 +96,7 @@
             pTimespec->tv_nsec = (ns % PG_NANOS_PER_SEC);
             pTimespec->tv_sec  = ((self.seconds + ts.tv_sec) + (ns / PG_NANOS_PER_SEC));
         }
-        else @throw PGMakeException(NSInvalidArgumentException, @"%@ is null", @"Timespec");
+        else @throw PGMakeException(NSInvalidArgumentException, PGErrorMsgObjectIsNull, PGMsgTimespec);
     }
 
     -(void)getTimeval:(PGTimeval *)pTimeval {
@@ -106,7 +106,7 @@
             pTimeval->tv_sec  = ts.tv_sec;
             pTimeval->tv_usec = (int32_t)(ts.tv_nsec / PG_MICROS_PER_NANO);
         }
-        else @throw PGMakeException(NSInvalidArgumentException, @"%@ is null", @"Timeval");
+        else @throw PGMakeException(NSInvalidArgumentException, PGErrorMsgObjectIsNull, PGMsgTimeval);
     }
 
     -(PGTimespec)toTimespec {

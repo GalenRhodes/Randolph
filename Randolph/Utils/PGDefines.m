@@ -69,6 +69,8 @@ NSString *const PGMsgNotOpen         = @"not open";
 NSString *const PGMsgBusyReading     = @"busy reading";
 NSString *const PGMsgBusyWriting     = @"busy writing";
 NSString *const PGMsgClosed          = @"closed";
+NSString *const PGMsgTimespec        = @"Timespec";
+NSString *const PGMsgTimeval         = @"Timeval";
 
 NSString *const PGSemaphoreNameFormat = @"pgsem_%@";
 

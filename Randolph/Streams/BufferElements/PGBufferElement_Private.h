@@ -47,15 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PGURLBufferElement()
 
-    @property(nonatomic, nullable, readonly) NSURLSessionTask  *urlTask;
-    @property(nonatomic, nullable, readonly) NSHTTPURLResponse *urlTaskResponse;
-    @property(nonatomic, nullable, readonly) NSMutableData     *dataBuild;
-    @property(nonatomic, nullable, readonly) NSURLSession      *urlSession;
-
-    +(NSURLSessionConfiguration *)backgroundSessionConfiguration;
-
-    -(NSURLSessionDataTask *)taskForURL:(NSString *)url;
-
 @end
 
 NS_ASSUME_NONNULL_END

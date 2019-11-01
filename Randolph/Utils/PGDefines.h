@@ -75,6 +75,8 @@ FOUNDATION_EXPORT NSString *const PGMsgNotOpen;
 FOUNDATION_EXPORT NSString *const PGMsgBusyReading;
 FOUNDATION_EXPORT NSString *const PGMsgBusyWriting;
 FOUNDATION_EXPORT NSString *const PGMsgClosed;
+FOUNDATION_EXPORT NSString *const PGMsgTimespec;
+FOUNDATION_EXPORT NSString *const PGMsgTimeval;
 
 FOUNDATION_EXPORT NSString *const PGSemaphoreNameFormat;
 

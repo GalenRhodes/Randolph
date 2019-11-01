@@ -21,114 +21,73 @@
  *//************************************************************************/
 
 #import "PGBufferElement_Private.h"
-
-typedef void (^compHndlr_t)(NSURLSessionResponseDisposition);
-
-typedef void (^cacheCompHndlr2_t)(NSCachedURLResponse *);
+#import "PGSemaphore.h"
 
 const NSInteger PGForceDownloadThreshold = 134217728; // 128MB threshold
 
+@interface PGURLBufferElement()
+
+    @property(nonatomic)/*      */ NSUInteger      writePointer;
+    @property(nonatomic)/*      */ NSUInteger      readPointer;
+    @property(nonatomic, readonly) NSMutableData   *dataBuild;
+    @property(nonatomic, readonly) NSRecursiveLock *lock;
+    @property(nonatomic, readonly) PGSemaphore     *semaphore;
+    @property(nonatomic, readonly) NSThread        *readerThread;
+    @property(nonatomic, readonly) NSInputStream   *inputStream;
+@end
+
 @implementation PGURLBufferElement {
-        NSRecursiveLock *_lock;
     }
 
-    @synthesize urlTask = _urlTask;
-    @synthesize dataBuild = _dataBuild;
-    @synthesize urlSession = _urlSession;
-    @synthesize forceDownload = _forceDownload;
     @synthesize isCompleted = _isCompleted;
+    @synthesize isStatusSuccess = _isStatusSuccess;
+    @synthesize forceDownload = _forceDownload;
+    @synthesize writePointer = _writePointer;
+    @synthesize readPointer = _readPointer;
+    @synthesize dataBuild = _dataBuild;
+    @synthesize lock = _lock;
+    @synthesize semaphore = _semaphore;
+    @synthesize readerThread = _readerThread;
 
     -(instancetype)initWithBytesFromURL:(NSString *)url forceDownload:(BOOL)forceDownload error:(NSError **)error {
         self = [super init];
 
         if(self) {
-            _lock       = [NSRecursiveLock new];
-            _dataBuild  = [NSMutableData new];
-            _urlSession = [NSURLSession sessionWithConfiguration:[PGURLBufferElement backgroundSessionConfiguration] delegate:self delegateQueue:nil];
-            _urlTask    = [self taskForURL:url];
-            [_urlTask resume];
+            NSError *err = nil;
+            _semaphore = [[PGSemaphore alloc] initWithCount:1 error:&err];
+
+            if(!_semaphore) {
+                PGSetError(error, err);
+                return nil;
+            }
+
+            _inputStream     = [NSInputStream inputStreamWithURL:[NSURL URLWithString:url]];
+
+            _lock            = [NSRecursiveLock new];
+            _dataBuild       = [NSMutableData new];
+            _forceDownload   = forceDownload;
+            _isCompleted     = NO;
+            _isStatusSuccess = NO;
         }
 
         return self;
     }
 
-    +(NSURLSessionConfiguration *)backgroundSessionConfiguration {
-        static NSURLSessionConfiguration *_sessionConf    = nil;
-        static dispatch_once_t           _sessionConfOnce = 0;
-        _dispatch_once(&_sessionConfOnce, ^{ _sessionConf = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[NSUUID.UUID UUIDString]]; });
-        return _sessionConf;
-    }
-
-    -(NSHTTPURLResponse *)urlTaskResponse {
-        return ((NSHTTPURLResponse *)self.urlTask.response);
-    }
-
-    -(NSURLSessionDataTask *)taskForURL:(NSString *)url {
-        if(self.forceDownload) [self.urlSession downloadTaskWithURL:[NSURL URLWithString:url]];
-        return [self.urlSession dataTaskWithURL:[NSURL URLWithString:url]];
+    -(NSUInteger)count {
+        return 0;
     }
 
     -(BOOL)isAtEOF {
-        return (self.isCompleted && super.isAtEOF);
+        return NO;
     }
 
-    -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)task didReceiveResponse:(NSURLResponse *)resp completionHandler:(compHndlr_t)compHndlr {
-        NSLInteger len = resp.expectedContentLength;
-        PGLog(@"didReceiveResponse: %@ - %@ bytes.", resp.MIMEType, @(len));
-        compHndlr((((len >= 0) && (len < PGForceDownloadThreshold)) ? NSURLSessionResponseAllow : NSURLSessionResponseBecomeDownload));
+    -(NSUInteger)getBytes:(pPGByte)buffer maxLength:(NSUInteger)maxLength error:(NSError **)error {
+        return [super getBytes:buffer maxLength:maxLength error:error];
     }
 
-    -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask {
-        PGLog(@"didBecomeDownloadTask:");
-        _urlTask = downloadTask;
+    -(NSInteger)getByte:(NSError **)error {
+        return [super getByte:error];
     }
 
-    -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
-        PGLog(@"didReceiveData: %@ bytes.", @(data.length));
-        if(data.length) [_dataBuild appendData:data];
-    }
-
-    -(BOOL)isStatusSuccess {
-        NSInteger statusCode = self.urlTaskResponse.statusCode;
-        return (statusCode >= 200) && (statusCode < 300);
-    }
-
-    -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-        PGLog(@"didCompleteWithError: %@; code: %@", error.description, @(self.urlTaskResponse.statusCode));
-
-        if(self.isStatusSuccess) {
-            self.buffer = _dataBuild;
-        }
-    }
-
-    -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics {
-        PGLog(@"didFinishCollectingMetrics: %@", metrics.description);
-    }
-
-    -(void)URLSession:(NSURLSession *)s dataTask:(NSURLSessionDataTask *)t willCacheResponse:(NSCachedURLResponse *)r completionHandler:(cacheCompHndlr2_t)h {
-        PGLog(@"willCacheResponse: NO");
-        h(nil);
-    }
-
-    -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-        NSError *error = nil;
-        @try {
-            PGLog(@"didFinishDownloadingToURL: %@", location.path);
-            self.buffer = [NSData dataWithContentsOfFile:location.path options:NSDataReadingMappedIfSafe error:&error];
-            _dataBuild = nil;
-        }
-        @finally {
-            if(!self.buffer && error) self.lastError = error;
-            _isCompleted = YES;
-        }
-    }
-
-    -(void)    URLSession:(NSURLSession *)session
-             downloadTask:(NSURLSessionDownloadTask *)task
-             didWriteData:(int64_t)bytes
-        totalBytesWritten:(int64_t)totalBytes
-totalBytesExpectedToWrite:(int64_t)expectedBytes {
-        PGLog(@"didWriteData:totalBytesWritten:totalBytesExpectedToWrite:");
-    }
 
 @end

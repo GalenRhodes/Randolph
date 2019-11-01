@@ -27,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PGURLBufferElement : PGByteBufferElement<NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
+@interface PGURLBufferElement : PGBufferElement
 
     @property(nonatomic, readonly) BOOL isCompleted;
     @property(nonatomic, readonly) BOOL isStatusSuccess;

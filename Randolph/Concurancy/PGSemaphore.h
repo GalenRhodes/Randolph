@@ -45,6 +45,10 @@ typedef NS_ENUM(NSUInteger, PGSemaphoreResponses) {
     @property(nonatomic, readonly)/*  */ NSUInteger count;
     @property(nonatomic, readonly, copy) NSString   *name;
 
+    -(instancetype)initWithCount:(NSUInteger)count error:(NSError **)error;
+
+    -(instancetype)initWithName:(NSString *)name count:(NSUInteger)count unlinkWhenDone:(BOOL)unlinkWhenDone error:(NSError **)error;
+
     -(PGSemaphoreResponses)post;
 
     -(PGSemaphoreResponses)wait;
