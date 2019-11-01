@@ -28,6 +28,12 @@ static NSNotificationCenter *_pgNotificationCenter_ = nil;
 static dispatch_once_t      _pgNotificationOnce_    = 0;
 static dispatch_once_t      _randomOnce_            = 0;
 
+BOOL PGSleep(NSUInteger millis) {
+    NSUInteger nanos = (millis * 1000000);
+    PGTimespec ts    = { .tv_sec = (nanos / 1000000000), .tv_nsec = (nanos % 1000000000) };
+    return (nanosleep(&ts, NULL) == 0);
+}
+
 NSString *PGFormat2(NSString *format, va_list args) {
     return [[NSString alloc] initWithFormat:format arguments:args];
 }

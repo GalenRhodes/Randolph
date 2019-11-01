@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PGURLBufferElement : PGBufferElement
 
-    @property(nonatomic, readonly) BOOL isCompleted;
     @property(nonatomic, readonly) BOOL isStatusSuccess;
     @property(nonatomic, readonly) BOOL forceDownload;
 

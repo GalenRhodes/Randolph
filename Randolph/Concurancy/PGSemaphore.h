@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, PGSemaphoreResponses) {
     -(PGSemaphoreResponses)tryWait;
 
     -(PGSemaphoreResponses)timedWait:(PGTime *)timeout;
+
 @end
 
 NS_ASSUME_NONNULL_END

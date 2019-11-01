@@ -164,6 +164,8 @@ typedef struct timeval         PGTimeval;
 
 @end
 
+FOUNDATION_EXPORT BOOL PGSleep(NSUInteger millis);
+
 FOUNDATION_EXPORT NSRect PGCenterRects(NSRect outer, NSSize inner);
 
 FOUNDATION_EXPORT CGFloat PGGetScaling(NSSize srcSize, NSSize dstSize);

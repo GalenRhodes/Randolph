@@ -25,6 +25,12 @@
 #import "PGTools.h"
 #import "sem_timedwait.h"
 
+@interface PGSemaphore()
+
+    -(PGSemaphoreResponses)returnCode:(int)errorNum;
+
+@end
+
 @implementation PGSemaphore {
         sem_t *_sem;
         BOOL  _unlinkWhenDone;
@@ -64,7 +70,7 @@
     }
 
     -(void)dealloc {
-        if(_sem != SEM_FAILED) {
+        if((_sem != NULL) && (_sem != SEM_FAILED)) {
             sem_close(_sem);
             if(_unlinkWhenDone) sem_unlink(self.name.UTF8String);
         }
@@ -75,46 +81,27 @@
     }
 
     -(PGSemaphoreResponses)wait {
-        if(sem_wait(_sem)) {
-            switch(errno) {//@f:0
-                case EAGAIN:  return PG_SEM_WAIT_BUSY;
-                case EDEADLK: return PG_SEM_WAIT_DEADLOCK;
-                case EINTR:   return PG_SEM_WAIT_INTERRUPT;
-                default:      return PG_SEM_WAIT_OTHERERR; //@f:1
-            }
-        }
-
-        return PG_SEM_WAIT_SUCCESS;
+        return (sem_wait(_sem) ? [self returnCode:errno] : PG_SEM_WAIT_SUCCESS);
     }
 
     -(PGSemaphoreResponses)tryWait {
-        if(sem_wait(_sem)) {
-            switch(errno) {//@f:0
-                case EAGAIN:  return PG_SEM_WAIT_BUSY;
-                case EDEADLK: return PG_SEM_WAIT_DEADLOCK;
-                case EINTR:   return PG_SEM_WAIT_INTERRUPT;
-                default:      return PG_SEM_WAIT_OTHERERR; //@f:1
-            }
-        }
-
-        return PG_SEM_WAIT_SUCCESS;
+        return (sem_wait(_sem) ? [self returnCode:errno] : PG_SEM_WAIT_SUCCESS);
     }
 
     -(PGSemaphoreResponses)timedWait:(PGTime *)timeout {
         PGTimespec ts = timeout.toTimespec;
+        if(ts.tv_nsec < 0 || ts.tv_nsec > 1000000000) @throw PGMakeException(NSInvalidArgumentException, PGErrorInvalidTimeout);
+        else return (sem_timedwait(_sem, &ts) ? [self returnCode:errno] : PG_SEM_WAIT_SUCCESS);
+    }
 
-        if(sem_timedwait(_sem, &ts)) {
-            switch(errno) {//@f:0
-                case EINVAL:    @throw PGMakeException(NSInvalidArgumentException, PGErrorInvalidTimeout);
-                case ETIMEDOUT: return PG_SEM_WAIT_TIMEOUT;
-                case EAGAIN:    return PG_SEM_WAIT_BUSY;
-                case EDEADLK:   return PG_SEM_WAIT_DEADLOCK;
-                case EINTR:     return PG_SEM_WAIT_INTERRUPT;
-                default:        return PG_SEM_WAIT_OTHERERR; //@f:1
-            }
+    -(PGSemaphoreResponses)returnCode:(int)errorNum {
+        switch(errorNum) {//@f:0
+            case ETIMEDOUT: return PG_SEM_WAIT_TIMEOUT;
+            case EAGAIN:    return PG_SEM_WAIT_BUSY;
+            case EDEADLK:   return PG_SEM_WAIT_DEADLOCK;
+            case EINTR:     return PG_SEM_WAIT_INTERRUPT;
+            default:        return PG_SEM_WAIT_OTHERERR; //@f:1
         }
-
-        return PG_SEM_WAIT_SUCCESS;
     }
 
 @end
